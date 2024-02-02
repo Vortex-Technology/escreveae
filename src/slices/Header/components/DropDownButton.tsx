@@ -22,7 +22,7 @@ export function DropDownButton({ label, items }: DropDownButtonProps) {
       <DropdownMenuContent className="w-56 p-0 flex flex-col gap-1.5 mr-5">
         {items.map((i) => (
           <DropdownMenuItem key={i} asChild>
-            <Button className="w-full hover:bg-gray-800">{i}</Button>
+            <Button className="w-full">{i}</Button>
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>
