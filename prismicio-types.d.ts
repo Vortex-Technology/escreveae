@@ -65,22 +65,68 @@ interface HomeDocumentData {
 export type HomeDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithoutUID<Simplify<HomeDocumentData>, "home", Lang>;
 
-type PostDocumentDataSlicesSlice = never;
+/**
+ * Item in *post → tags*
+ */
+export interface PostDocumentDataTagsItem {
+  /**
+   * tag field in *post → tags*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: post.tags[].tag
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  tag: prismic.KeyTextField;
+}
 
 /**
  * Content for post documents
  */
 interface PostDocumentData {
   /**
-   * Slice Zone field in *post*
+   * title field in *post*
    *
-   * - **Field Type**: Slice Zone
+   * - **Field Type**: Rich Text
    * - **Placeholder**: *None*
-   * - **API ID Path**: post.slices[]
+   * - **API ID Path**: post.title
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#slices
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
    */
-  slices: prismic.SliceZone<PostDocumentDataSlicesSlice>;
+  title: prismic.RichTextField;
+
+  /**
+   * image field in *post*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: post.image
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image: prismic.ImageField<never>;
+
+  /**
+   * tags field in *post*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: post.tags[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  tags: prismic.GroupField<Simplify<PostDocumentDataTagsItem>>;
+
+  /**
+   * content field in *post*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: post.content
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  content: prismic.RichTextField;
 }
 
 /**
@@ -319,7 +365,7 @@ declare module "@prismicio/client" {
       HomeDocumentDataSlicesSlice,
       PostDocument,
       PostDocumentData,
-      PostDocumentDataSlicesSlice,
+      PostDocumentDataTagsItem,
       AllDocumentTypes,
       BannerSlice,
       BannerSliceDefaultPrimary,

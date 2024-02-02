@@ -12,11 +12,46 @@
         },
         "type": "UID"
       },
-      "slices": {
-        "type": "Slices",
-        "fieldset": "Slice Zone",
+      "title": {
+        "type": "StructuredText",
         "config": {
-          "choices": {}
+          "label": "title",
+          "placeholder": "",
+          "allowTargetBlank": true,
+          "single": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+        }
+      },
+      "image": {
+        "type": "Image",
+        "config": {
+          "label": "image",
+          "constraint": {},
+          "thumbnails": []
+        }
+      },
+      "tags": {
+        "type": "Group",
+        "config": {
+          "label": "tags",
+          "repeat": true,
+          "fields": {
+            "tag": {
+              "type": "Text",
+              "config": {
+                "label": "tag",
+                "placeholder": ""
+              }
+            }
+          }
+        }
+      },
+      "content": {
+        "type": "StructuredText",
+        "config": {
+          "label": "content",
+          "placeholder": "",
+          "allowTargetBlank": true,
+          "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
         }
       }
     }
