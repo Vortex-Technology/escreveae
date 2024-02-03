@@ -4,7 +4,7 @@ import type * as prismic from "@prismicio/client";
 
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
-type HomeDocumentDataSlicesSlice = BannerSlice | HeaderSlice;
+type HomeDocumentDataSlicesSlice = FooterSlice | BannerSlice | HeaderSlice;
 
 /**
  * Content for home documents
@@ -284,6 +284,48 @@ type BannerSliceVariation = BannerSliceDefault | BannerSliceHeroLeft;
 export type BannerSlice = prismic.SharedSlice<"banner", BannerSliceVariation>;
 
 /**
+ * Primary content in *Footer → Primary*
+ */
+export interface FooterSliceDefaultPrimary {
+  /**
+   * copyright field in *Footer → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer.primary.copyright
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  copyright: prismic.KeyTextField;
+}
+
+/**
+ * Default variation for Footer Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type FooterSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<FooterSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *Footer*
+ */
+type FooterSliceVariation = FooterSliceDefault;
+
+/**
+ * Footer Shared Slice
+ *
+ * - **API ID**: `footer`
+ * - **Description**: Footer
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type FooterSlice = prismic.SharedSlice<"footer", FooterSliceVariation>;
+
+/**
  * Primary content in *Header → Primary*
  */
 export interface HeaderSliceDefaultPrimary {
@@ -375,6 +417,10 @@ declare module "@prismicio/client" {
       BannerSliceVariation,
       BannerSliceDefault,
       BannerSliceHeroLeft,
+      FooterSlice,
+      FooterSliceDefaultPrimary,
+      FooterSliceVariation,
+      FooterSliceDefault,
       HeaderSlice,
       HeaderSliceDefaultPrimary,
       HeaderSliceDefaultItem,

@@ -1,0 +1,14 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"copyright": {
+				"__TYPE__": "FieldContent",
+				"value": "village",
+				"type": "Text"
+			}
+		},
+		"items": []
+	}
+]
