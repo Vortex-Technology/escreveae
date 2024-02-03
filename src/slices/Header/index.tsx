@@ -13,8 +13,6 @@ export type HeaderProps = SliceComponentProps<Content.HeaderSlice>
  * Component for "Header" Slices.
  */
 const Header = ({ slice }: HeaderProps): JSX.Element => {
-  console.log('slice:', slice)
-
   return (
     <header
       className="w-full flex justify-between h-16 bg-gray-100 px-6 py-1.5 shadow-black/30 shadow-lg"
@@ -37,18 +35,28 @@ const Header = ({ slice }: HeaderProps): JSX.Element => {
         )}
       </div>
 
-      <div className="flex items-center gap-3">
-        {slice.items.map((item) => {
-          const items = item.button?.split(',') ?? []
-          const isDropDownButton = items.length > 1
+      <nav className="flex items-center ">
+        <ul className="flex gap-3">
+          {slice.items.map(({ button }) => {
+            const items = button?.split(',') ?? []
+            const isDropDownButton = items.length > 1
 
-          if (isDropDownButton) {
-            return <DropDownButton label={items[0]} items={items.slice(1)} />
-          }
+            if (isDropDownButton) {
+              return (
+                <li key={button}>
+                  <DropDownButton label={items[0]} items={items.slice(1)} />
+                </li>
+              )
+            }
 
-          return <Button>{item.button}</Button>
-        })}
-      </div>
+            return (
+              <li key={button}>
+                <Button>{button}</Button>
+              </li>
+            )
+          })}
+        </ul>
+      </nav>
     </header>
   )
 }
