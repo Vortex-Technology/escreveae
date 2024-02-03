@@ -4,6 +4,67 @@ import type * as prismic from "@prismicio/client";
 
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
+type BlogDocumentDataSlicesSlice = PostsSlice | BannerSlice | HeaderSlice;
+
+/**
+ * Content for blog documents
+ */
+interface BlogDocumentData {
+  /**
+   * Slice Zone field in *blog*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blog.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<BlogDocumentDataSlicesSlice> /**
+   * Meta Description field in *blog*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: blog.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */;
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *blog*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blog.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  meta_image: prismic.ImageField<never>;
+
+  /**
+   * Meta Title field in *blog*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: blog.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  meta_title: prismic.KeyTextField;
+}
+
+/**
+ * blog document from Prismic
+ *
+ * - **API ID**: `blog`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type BlogDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<Simplify<BlogDocumentData>, "blog", Lang>;
+
 type HomeDocumentDataSlicesSlice = BannerSlice | HeaderSlice;
 
 /**
@@ -141,7 +202,7 @@ interface PostDocumentData {
 export type PostDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<PostDocumentData>, "post", Lang>;
 
-export type AllDocumentTypes = HomeDocument | PostDocument;
+export type AllDocumentTypes = BlogDocument | HomeDocument | PostDocument;
 
 /**
  * Primary content in *Banner → Primary*
@@ -350,6 +411,48 @@ type HeaderSliceVariation = HeaderSliceDefault;
  */
 export type HeaderSlice = prismic.SharedSlice<"header", HeaderSliceVariation>;
 
+/**
+ * Primary content in *Posts → Primary*
+ */
+export interface PostsSliceDefaultPrimary {
+  /**
+   * perPage field in *Posts → Primary*
+   *
+   * - **Field Type**: Number
+   * - **Placeholder**: *None*
+   * - **API ID Path**: posts.primary.perpage
+   * - **Documentation**: https://prismic.io/docs/field#number
+   */
+  perpage: prismic.NumberField;
+}
+
+/**
+ * Default variation for Posts Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type PostsSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<PostsSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *Posts*
+ */
+type PostsSliceVariation = PostsSliceDefault;
+
+/**
+ * Posts Shared Slice
+ *
+ * - **API ID**: `posts`
+ * - **Description**: Posts
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type PostsSlice = prismic.SharedSlice<"posts", PostsSliceVariation>;
+
 declare module "@prismicio/client" {
   interface CreateClient {
     (
@@ -360,6 +463,9 @@ declare module "@prismicio/client" {
 
   namespace Content {
     export type {
+      BlogDocument,
+      BlogDocumentData,
+      BlogDocumentDataSlicesSlice,
       HomeDocument,
       HomeDocumentData,
       HomeDocumentDataSlicesSlice,
@@ -380,6 +486,10 @@ declare module "@prismicio/client" {
       HeaderSliceDefaultItem,
       HeaderSliceVariation,
       HeaderSliceDefault,
+      PostsSlice,
+      PostsSliceDefaultPrimary,
+      PostsSliceVariation,
+      PostsSliceDefault,
     };
   }
 }
