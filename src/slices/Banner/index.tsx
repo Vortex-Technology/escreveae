@@ -20,17 +20,19 @@ const Banner = ({ slice }: BannerProps): JSX.Element => {
       data-slice-variation={slice.variation}
     >
       <div className="w-full max-h-[32rem] h-full max-w-[1260px] mx-auto grid grid-cols-2 gap-20 items-center">
-        <div className="h-full max-h-[32rem] w-full flex items-center justify-center overflow-hidden">
-          <Image
-            className="object-contain flex w-full "
-            src={slice.primary.hero.url ?? ''}
-            alt={slice.primary.hero.alt ?? ''}
-            width={480}
-            height={640}
-            quality={100}
-            priority
-          />
-        </div>
+        {slice.variation === 'default' && (
+          <div className="h-full max-h-[32rem] w-full flex items-center justify-center overflow-hidden">
+            <Image
+              className="object-contain flex w-full "
+              src={slice.primary.hero.url ?? ''}
+              alt={slice.primary.hero.alt ?? ''}
+              width={480}
+              height={640}
+              quality={100}
+              priority
+            />
+          </div>
+        )}
 
         <div className="w-full flex flex-col gap-8 py-16">
           <h3 className="font-body text-6xl font-bold">
@@ -54,6 +56,20 @@ const Banner = ({ slice }: BannerProps): JSX.Element => {
             </div>
           )}
         </div>
+
+        {slice.variation === 'heroLeft' && (
+          <div className="h-full max-h-[32rem] w-full flex items-center justify-center overflow-hidden">
+            <Image
+              className="object-contain flex w-full "
+              src={slice.primary.hero.url ?? ''}
+              alt={slice.primary.hero.alt ?? ''}
+              width={480}
+              height={640}
+              quality={100}
+              priority
+            />
+          </div>
+        )}
       </div>
     </section>
   )
