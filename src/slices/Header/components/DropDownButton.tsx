@@ -19,10 +19,10 @@ export function DropDownButton({ label, items }: DropDownButtonProps) {
         <Button>{label}</Button>
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent className="w-56 p-0 flex flex-col gap-1.5 mr-5">
+      <DropdownMenuContent className="w-36 p-0 flex flex-col mr-5">
         {items.map((i) => (
           <DropdownMenuItem key={i} asChild>
-            <Button className="w-full">{i}</Button>
+            <Button className="w-full flex justify-end">{i}</Button>
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>

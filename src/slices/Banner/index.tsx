@@ -15,7 +15,7 @@ const Banner = ({ slice }: BannerProps): JSX.Element => {
   console.log(':slice', slice.primary.content)
   return (
     <section
-      className="w-screen px-2 bg-gradient-to-br text-white from-[#152540] to-[#8c0b66]"
+      className="w-screen px-2 bg-gradient-to-br text-white from-[#152540] to-[#6F11A2]"
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
