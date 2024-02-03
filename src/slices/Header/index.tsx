@@ -17,7 +17,7 @@ export type HeaderProps = SliceComponentProps<Content.HeaderSlice>
 const Header = ({ slice }: HeaderProps): JSX.Element => {
   return (
     <header
-      className="w-full flex justify-between h-16 bg-gray-100 px-6 py-1.5 shadow-black/30 shadow-lg"
+      className="w-full fixed flex justify-between h-16 bg-gray-100 px-6 py-1.5 shadow-black/30 shadow-lg top-0"
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
