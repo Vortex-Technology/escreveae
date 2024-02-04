@@ -4,6 +4,74 @@ import type * as prismic from "@prismicio/client";
 
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
+type ContactDocumentDataSlicesSlice =
+  | ContactButtonSlice
+  | FooterSlice
+  | HeaderSlice;
+
+/**
+ * Content for contact documents
+ */
+interface ContactDocumentData {
+  /**
+   * Slice Zone field in *contact*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: contact.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<ContactDocumentDataSlicesSlice> /**
+   * Meta Description field in *contact*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: contact.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */;
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *contact*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: contact.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  meta_image: prismic.ImageField<never>;
+
+  /**
+   * Meta Title field in *contact*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: contact.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  meta_title: prismic.KeyTextField;
+}
+
+/**
+ * contact document from Prismic
+ *
+ * - **API ID**: `contact`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type ContactDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<
+    Simplify<ContactDocumentData>,
+    "contact",
+    Lang
+  >;
+
 type HomeDocumentDataSlicesSlice =
   | FindTagsSlice
   | FooterSlice
@@ -195,7 +263,11 @@ interface TagDocumentData {
 export type TagDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<TagDocumentData>, "tag", Lang>;
 
-export type AllDocumentTypes = HomeDocument | PostDocument | TagDocument;
+export type AllDocumentTypes =
+  | ContactDocument
+  | HomeDocument
+  | PostDocument
+  | TagDocument;
 
 /**
  * Primary content in *Banner → Primary*
@@ -338,6 +410,71 @@ type BannerSliceVariation = BannerSliceDefault | BannerSliceHeroLeft;
 export type BannerSlice = prismic.SharedSlice<"banner", BannerSliceVariation>;
 
 /**
+ * Primary content in *ContactButton → Primary*
+ */
+export interface ContactButtonSliceDefaultPrimary {
+  /**
+   * label field in *ContactButton → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: contact_button.primary.label
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  label: prismic.KeyTextField;
+
+  /**
+   * link field in *ContactButton → Primary*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: contact_button.primary.link
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  link: prismic.LinkField;
+
+  /**
+   * icon field in *ContactButton → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: contact_button.primary.icon
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  icon: prismic.KeyTextField;
+}
+
+/**
+ * Default variation for ContactButton Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type ContactButtonSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<ContactButtonSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *ContactButton*
+ */
+type ContactButtonSliceVariation = ContactButtonSliceDefault;
+
+/**
+ * ContactButton Shared Slice
+ *
+ * - **API ID**: `contact_button`
+ * - **Description**: ContactButton
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type ContactButtonSlice = prismic.SharedSlice<
+  "contact_button",
+  ContactButtonSliceVariation
+>;
+
+/**
  * Primary content in *FindTags → Primary*
  */
 export interface FindTagsSliceDefaultPrimary {
@@ -398,7 +535,7 @@ export interface FooterSliceDefaultPrimary {
 }
 
 /**
- * Default variation for Footer Slice
+ * Unfixed variation for Footer Slice
  *
  * - **API ID**: `default`
  * - **Description**: Default
@@ -411,9 +548,37 @@ export type FooterSliceDefault = prismic.SharedSliceVariation<
 >;
 
 /**
+ * Primary content in *Footer → Primary*
+ */
+export interface FooterSliceFixedPrimary {
+  /**
+   * copyright field in *Footer → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer.primary.copyright
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  copyright: prismic.KeyTextField;
+}
+
+/**
+ * Fixed variation for Footer Slice
+ *
+ * - **API ID**: `fixed`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type FooterSliceFixed = prismic.SharedSliceVariation<
+  "fixed",
+  Simplify<FooterSliceFixedPrimary>,
+  never
+>;
+
+/**
  * Slice variation for *Footer*
  */
-type FooterSliceVariation = FooterSliceDefault;
+type FooterSliceVariation = FooterSliceDefault | FooterSliceFixed;
 
 /**
  * Footer Shared Slice
@@ -465,7 +630,7 @@ export interface HeaderSliceDefaultItem {
 }
 
 /**
- * Default variation for Header Slice
+ * Fixed variation for Header Slice
  *
  * - **API ID**: `default`
  * - **Description**: Default
@@ -478,9 +643,62 @@ export type HeaderSliceDefault = prismic.SharedSliceVariation<
 >;
 
 /**
+ * Primary content in *Header → Primary*
+ */
+export interface HeaderSliceUnfixedPrimary {
+  /**
+   * logo field in *Header → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: header.primary.logo
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  logo: prismic.ImageField<never>;
+
+  /**
+   * name field in *Header → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: header.primary.name
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  name: prismic.RichTextField;
+}
+
+/**
+ * Primary content in *Header → Items*
+ */
+export interface HeaderSliceUnfixedItem {
+  /**
+   * button field in *Header → Items*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: header.items[].button
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  button: prismic.KeyTextField;
+}
+
+/**
+ * Unfixed variation for Header Slice
+ *
+ * - **API ID**: `unfixed`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type HeaderSliceUnfixed = prismic.SharedSliceVariation<
+  "unfixed",
+  Simplify<HeaderSliceUnfixedPrimary>,
+  Simplify<HeaderSliceUnfixedItem>
+>;
+
+/**
  * Slice variation for *Header*
  */
-type HeaderSliceVariation = HeaderSliceDefault;
+type HeaderSliceVariation = HeaderSliceDefault | HeaderSliceUnfixed;
 
 /**
  * Header Shared Slice
@@ -501,6 +719,9 @@ declare module "@prismicio/client" {
 
   namespace Content {
     export type {
+      ContactDocument,
+      ContactDocumentData,
+      ContactDocumentDataSlicesSlice,
       HomeDocument,
       HomeDocumentData,
       HomeDocumentDataSlicesSlice,
@@ -518,19 +739,28 @@ declare module "@prismicio/client" {
       BannerSliceVariation,
       BannerSliceDefault,
       BannerSliceHeroLeft,
+      ContactButtonSlice,
+      ContactButtonSliceDefaultPrimary,
+      ContactButtonSliceVariation,
+      ContactButtonSliceDefault,
       FindTagsSlice,
       FindTagsSliceDefaultPrimary,
       FindTagsSliceVariation,
       FindTagsSliceDefault,
       FooterSlice,
       FooterSliceDefaultPrimary,
+      FooterSliceFixedPrimary,
       FooterSliceVariation,
       FooterSliceDefault,
+      FooterSliceFixed,
       HeaderSlice,
       HeaderSliceDefaultPrimary,
       HeaderSliceDefaultItem,
+      HeaderSliceUnfixedPrimary,
+      HeaderSliceUnfixedItem,
       HeaderSliceVariation,
       HeaderSliceDefault,
+      HeaderSliceUnfixed,
     };
   }
 }
