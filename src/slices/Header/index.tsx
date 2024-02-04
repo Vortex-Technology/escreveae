@@ -1,6 +1,6 @@
+import Image from 'next/image'
 import { Content, asText } from '@prismicio/client'
 import { SliceComponentProps } from '@prismicio/react'
-import Image from 'next/image'
 import { DropDownButton } from './components/DropDownButton'
 import { HeaderLink } from './components/HeaderLink'
 
@@ -51,7 +51,7 @@ const Header = ({ slice }: HeaderProps): JSX.Element => {
 
             return (
               <li key={button}>
-                <HeaderLink pattern={button} />
+                <HeaderLink pattern={button as string} />
               </li>
             )
           })}
