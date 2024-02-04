@@ -11,6 +11,9 @@
         "fieldset": "Slice Zone",
         "config": {
           "choices": {
+            "find_tags": {
+              "type": "SharedSlice"
+            },
             "footer": {
               "type": "SharedSlice"
             },

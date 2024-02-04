@@ -4,7 +4,11 @@ import type * as prismic from "@prismicio/client";
 
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
-type HomeDocumentDataSlicesSlice = FooterSlice | BannerSlice | HeaderSlice;
+type HomeDocumentDataSlicesSlice =
+  | FindTagsSlice
+  | FooterSlice
+  | BannerSlice
+  | HeaderSlice;
 
 /**
  * Content for home documents
@@ -141,7 +145,57 @@ interface PostDocumentData {
 export type PostDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<PostDocumentData>, "post", Lang>;
 
-export type AllDocumentTypes = HomeDocument | PostDocument;
+/**
+ * Content for tag documents
+ */
+interface TagDocumentData {
+  /**
+   * name field in *tag*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tag.name
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  name: prismic.KeyTextField;
+
+  /**
+   * icon field in *tag*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tag.icon
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  icon: prismic.KeyTextField;
+
+  /**
+   * description field in *tag*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tag.description
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  description: prismic.KeyTextField;
+}
+
+/**
+ * tag document from Prismic
+ *
+ * - **API ID**: `tag`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type TagDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<Simplify<TagDocumentData>, "tag", Lang>;
+
+export type AllDocumentTypes = HomeDocument | PostDocument | TagDocument;
 
 /**
  * Primary content in *Banner → Primary*
@@ -284,6 +338,51 @@ type BannerSliceVariation = BannerSliceDefault | BannerSliceHeroLeft;
 export type BannerSlice = prismic.SharedSlice<"banner", BannerSliceVariation>;
 
 /**
+ * Primary content in *FindTags → Primary*
+ */
+export interface FindTagsSliceDefaultPrimary {
+  /**
+   * title field in *FindTags → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: find_tags.primary.title
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  title: prismic.KeyTextField;
+}
+
+/**
+ * Default variation for FindTags Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type FindTagsSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<FindTagsSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *FindTags*
+ */
+type FindTagsSliceVariation = FindTagsSliceDefault;
+
+/**
+ * FindTags Shared Slice
+ *
+ * - **API ID**: `find_tags`
+ * - **Description**: FindTags
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type FindTagsSlice = prismic.SharedSlice<
+  "find_tags",
+  FindTagsSliceVariation
+>;
+
+/**
  * Primary content in *Footer → Primary*
  */
 export interface FooterSliceDefaultPrimary {
@@ -408,6 +507,8 @@ declare module "@prismicio/client" {
       PostDocument,
       PostDocumentData,
       PostDocumentDataTagsItem,
+      TagDocument,
+      TagDocumentData,
       AllDocumentTypes,
       BannerSlice,
       BannerSliceDefaultPrimary,
@@ -417,6 +518,10 @@ declare module "@prismicio/client" {
       BannerSliceVariation,
       BannerSliceDefault,
       BannerSliceHeroLeft,
+      FindTagsSlice,
+      FindTagsSliceDefaultPrimary,
+      FindTagsSliceVariation,
+      FindTagsSliceDefault,
       FooterSlice,
       FooterSliceDefaultPrimary,
       FooterSliceVariation,

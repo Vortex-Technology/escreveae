@@ -1,9 +1,7 @@
-import { Button } from '@/components/ui/button'
 import { Content, asText } from '@prismicio/client'
 import { SliceComponentProps } from '@prismicio/react'
 import Image from 'next/image'
 import { DropDownButton } from './components/DropDownButton'
-import Link from 'next/link'
 import { HeaderLink } from './components/HeaderLink'
 
 /**

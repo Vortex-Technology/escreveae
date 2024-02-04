@@ -12,10 +12,9 @@ export type BannerProps = SliceComponentProps<Content.BannerSlice>
  * Component for "Banner" Slices.
  */
 const Banner = ({ slice }: BannerProps): JSX.Element => {
-  console.log(':slice', slice.primary.content)
   return (
     <section
-      className="w-screen mt-8 px-2 bg-gradient-to-br text-white from-[#152540] to-[#6F11A2]"
+      className="w-screen mt-8 px-6 bg-gradient-to-br text-white from-[#152540] to-[#6F11A2]"
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
@@ -23,7 +22,7 @@ const Banner = ({ slice }: BannerProps): JSX.Element => {
         {slice.variation === 'default' && (
           <div className="h-full max-h-[32rem] w-full flex items-center justify-center overflow-hidden">
             <Image
-              className="object-contain flex w-full "
+              className="object-contain flex w-full"
               src={slice.primary.hero.url ?? ''}
               alt={slice.primary.hero.alt ?? ''}
               width={480}

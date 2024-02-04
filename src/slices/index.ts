@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 
 export const components = {
   banner: dynamic(() => import("./Banner")),
+  find_tags: dynamic(() => import("./FindTags")),
   footer: dynamic(() => import("./Footer")),
   header: dynamic(() => import("./Header")),
 };
