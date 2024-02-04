@@ -22,6 +22,7 @@ const ContactButton = ({ slice }: ContactButtonProps): JSX.Element => {
       data-slice-variation={slice.variation}
     >
       <Link
+        target="_blank"
         href={asLink(slice.primary.link) ?? '#'}
         className="w-full max-w-[680px] py-2 text-white rounded-full bg-violet-800 flex items-center justify-center gap-3 font-bold text-lg opacity-95 hover:opacity-100 ease-in-out duration-200"
       >
