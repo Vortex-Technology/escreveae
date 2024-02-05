@@ -18,9 +18,9 @@ const Banner = ({ slice }: BannerProps): JSX.Element => {
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
-      <div className="w-full max-h-[32rem] h-full max-w-[1260px] mx-auto grid grid-cols-2 gap-20 items-center">
+      <div className="w-full max-h-[32rem] h-full max-w-[1260px] mx-auto grid grid-cols-2 max-lg:grid-cols-1 max-lg:max-h-[unset] max-sm:gap-2 gap-20 items-center">
         {slice.variation === 'default' && (
-          <div className="h-full max-h-[32rem] w-full flex items-center justify-center overflow-hidden">
+          <div className="h-full max-h-[32rem] max-lg:max-h-[30rem] max-lg:max-w-[70%] max-lg:mx-auto max-sm:max-w-[unset] w-full flex items-center justify-center overflow-hidden">
             <Image
               className="object-contain flex w-full"
               src={slice.primary.hero.url ?? ''}
@@ -33,8 +33,8 @@ const Banner = ({ slice }: BannerProps): JSX.Element => {
           </div>
         )}
 
-        <div className="w-full flex flex-col gap-8 py-16">
-          <h3 className="font-body text-6xl font-bold">
+        <div className="w-full flex flex-col gap-8 py-16 max-sm:py-8 max-sm:gap-4">
+          <h3 className="font-body text-6xl max-sm:text-4xl font-bold">
             {slice.primary.title}
           </h3>
 
@@ -57,9 +57,9 @@ const Banner = ({ slice }: BannerProps): JSX.Element => {
         </div>
 
         {slice.variation === 'heroLeft' && (
-          <div className="h-full max-h-[32rem] w-full flex items-center justify-center overflow-hidden">
+          <div className="h-full max-h-[32rem] max-lg:max-h-[30rem] max-lg:max-w-[70%] max-lg:mx-auto max-sm:max-w-[unset] w-full flex items-center justify-center overflow-hidden">
             <Image
-              className="object-contain flex w-full "
+              className="object-contain flex w-full"
               src={slice.primary.hero.url ?? ''}
               alt={slice.primary.hero.alt ?? ''}
               width={480}
