@@ -11,7 +11,7 @@ interface BookProps {
 
 export function Book({ book }: BookProps) {
   return (
-    <section className="grid grid-cols-[3fr_7fr] bg-zinc-200 rounded-lg border border-zinc-300 overflow-hidden shadow-lg shadow-black/10">
+    <section className="grid grid-cols-[3fr_7fr] bg-zinc-200 rounded-lg border border-zinc-300 overflow-hidden shadow-lg shadow-black/10 max-sm:grid-cols-1">
       <div className="w-full">
         <Image
           className="object-cover w-full"

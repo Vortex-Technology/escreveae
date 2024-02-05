@@ -18,7 +18,7 @@ const Books = async ({ slice }: BooksProps): Promise<JSX.Element> => {
 
   return (
     <div
-      className="w-full max-h-[32rem] h-full py-10 max-w-[1260px] mx-auto grid grid-cols-2 gap-6"
+      className="w-full max-h-[32rem] h-full py-10 px-4 max-w-[1260px] mx-auto grid grid-cols-2 gap-6 max-lg:grid-cols-1"
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
