@@ -15,9 +15,10 @@ const ContactButton = ({ slice }: ContactButtonProps): JSX.Element => {
   const Icon = (
     LucideIcons as unknown as { [k: string]: LucideIcons.LucideIcon }
   )[`${slice.primary.icon}`]
+
   return (
     <div
-      className="flex items-center justify-center h-screen max-h-12 mb-4"
+      className="flex px-4 items-center justify-center h-screen max-h-12 mb-4"
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
