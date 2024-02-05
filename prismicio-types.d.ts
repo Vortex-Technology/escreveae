@@ -4,6 +4,324 @@ import type * as prismic from "@prismicio/client";
 
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
+/**
+ * Item in *book → buttons*
+ */
+export interface BookDocumentDataButtonsItem {
+  /**
+   * color field in *book → buttons*
+   *
+   * - **Field Type**: Color
+   * - **Placeholder**: *None*
+   * - **API ID Path**: book.buttons[].color
+   * - **Documentation**: https://prismic.io/docs/field#color
+   */
+  color: prismic.ColorField;
+
+  /**
+   * icon field in *book → buttons*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: book.buttons[].icon
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  icon: prismic.KeyTextField;
+
+  /**
+   * url field in *book → buttons*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: book.buttons[].url
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  url: prismic.LinkField;
+}
+
+type BookDocumentDataSlicesSlice = never;
+
+/**
+ * Content for book documents
+ */
+interface BookDocumentData {
+  /**
+   * cover field in *book*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: book.cover
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  cover: prismic.ImageField<never>;
+
+  /**
+   * author_img field in *book*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: book.author_img
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  author_img: prismic.ImageField<never>;
+
+  /**
+   * author field in *book*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: book.author
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  author: prismic.KeyTextField;
+
+  /**
+   * author_bio field in *book*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: book.author_bio
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  author_bio: prismic.RichTextField;
+
+  /**
+   * title field in *book*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: book.title
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  title: prismic.KeyTextField;
+
+  /**
+   * sumary field in *book*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: book.sumary
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  sumary: prismic.RichTextField;
+
+  /**
+   * read_more field in *book*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: book.read_more
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  read_more: prismic.LinkField;
+
+  /**
+   * buttons field in *book*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: book.buttons[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  buttons: prismic.GroupField<Simplify<BookDocumentDataButtonsItem>>;
+
+  /**
+   * Slice Zone field in *book*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: book.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<BookDocumentDataSlicesSlice> /**
+   * Meta Description field in *book*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: book.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */;
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *book*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: book.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  meta_image: prismic.ImageField<never>;
+
+  /**
+   * Meta Title field in *book*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: book.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  meta_title: prismic.KeyTextField;
+}
+
+/**
+ * book document from Prismic
+ *
+ * - **API ID**: `book`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type BookDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<Simplify<BookDocumentData>, "book", Lang>;
+
+type BooksDocumentDataSlicesSlice =
+  | HeaderSlice
+  | FooterSlice
+  | BannerSlice
+  | BooksSlice;
+
+/**
+ * Content for books documents
+ */
+interface BooksDocumentData {
+  /**
+   * Slice Zone field in *books*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: books.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<BooksDocumentDataSlicesSlice> /**
+   * Meta Description field in *books*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: books.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */;
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *books*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: books.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  meta_image: prismic.ImageField<never>;
+
+  /**
+   * Meta Title field in *books*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: books.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  meta_title: prismic.KeyTextField;
+}
+
+/**
+ * books document from Prismic
+ *
+ * - **API ID**: `books`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type BooksDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<Simplify<BooksDocumentData>, "books", Lang>;
+
+type BooksstudantDocumentDataSlicesSlice =
+  | FooterSlice
+  | HeaderSlice
+  | BooksSlice
+  | BannerSlice;
+
+/**
+ * Content for booksStudant documents
+ */
+interface BooksstudantDocumentData {
+  /**
+   * Slice Zone field in *booksStudant*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: booksstudant.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<BooksstudantDocumentDataSlicesSlice> /**
+   * Meta Description field in *booksStudant*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: booksstudant.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */;
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *booksStudant*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: booksstudant.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  meta_image: prismic.ImageField<never>;
+
+  /**
+   * Meta Title field in *booksStudant*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: booksstudant.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  meta_title: prismic.KeyTextField;
+}
+
+/**
+ * booksStudant document from Prismic
+ *
+ * - **API ID**: `booksstudant`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type BooksstudantDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<
+    Simplify<BooksstudantDocumentData>,
+    "booksstudant",
+    Lang
+  >;
+
 type ContactDocumentDataSlicesSlice =
   | ContactButtonSlice
   | FooterSlice
@@ -264,6 +582,9 @@ export type TagDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<TagDocumentData>, "tag", Lang>;
 
 export type AllDocumentTypes =
+  | BookDocument
+  | BooksDocument
+  | BooksstudantDocument
   | ContactDocument
   | HomeDocument
   | PostDocument
@@ -408,6 +729,46 @@ type BannerSliceVariation = BannerSliceDefault | BannerSliceHeroLeft;
  * - **Documentation**: https://prismic.io/docs/slice
  */
 export type BannerSlice = prismic.SharedSlice<"banner", BannerSliceVariation>;
+
+/**
+ * My Books variation for Books Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type BooksSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Record<string, never>,
+  never
+>;
+
+/**
+ * Studant Books variation for Books Slice
+ *
+ * - **API ID**: `studantBooks`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type BooksSliceStudantBooks = prismic.SharedSliceVariation<
+  "studantBooks",
+  Record<string, never>,
+  never
+>;
+
+/**
+ * Slice variation for *Books*
+ */
+type BooksSliceVariation = BooksSliceDefault | BooksSliceStudantBooks;
+
+/**
+ * Books Shared Slice
+ *
+ * - **API ID**: `books`
+ * - **Description**: Books
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type BooksSlice = prismic.SharedSlice<"books", BooksSliceVariation>;
 
 /**
  * Primary content in *ContactButton → Primary*
@@ -719,6 +1080,16 @@ declare module "@prismicio/client" {
 
   namespace Content {
     export type {
+      BookDocument,
+      BookDocumentData,
+      BookDocumentDataButtonsItem,
+      BookDocumentDataSlicesSlice,
+      BooksDocument,
+      BooksDocumentData,
+      BooksDocumentDataSlicesSlice,
+      BooksstudantDocument,
+      BooksstudantDocumentData,
+      BooksstudantDocumentDataSlicesSlice,
       ContactDocument,
       ContactDocumentData,
       ContactDocumentDataSlicesSlice,
@@ -739,6 +1110,10 @@ declare module "@prismicio/client" {
       BannerSliceVariation,
       BannerSliceDefault,
       BannerSliceHeroLeft,
+      BooksSlice,
+      BooksSliceVariation,
+      BooksSliceDefault,
+      BooksSliceStudantBooks,
       ContactButtonSlice,
       ContactButtonSliceDefaultPrimary,
       ContactButtonSliceVariation,

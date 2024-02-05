@@ -51,3 +51,4 @@ function postMapper(post: PostDocument) {
     assert,
   }
 }
+
