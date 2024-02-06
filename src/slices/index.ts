@@ -9,4 +9,5 @@ export const components = {
   find_tags: dynamic(() => import("./FindTags")),
   footer: dynamic(() => import("./Footer")),
   header: dynamic(() => import("./Header")),
+  posts: dynamic(() => import("./Posts")),
 };

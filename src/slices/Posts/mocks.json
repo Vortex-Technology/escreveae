@@ -1,0 +1,14 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"perpage": {
+				"__TYPE__": "FieldContent",
+				"value": "82",
+				"type": "Number"
+			}
+		},
+		"items": []
+	}
+]

@@ -3,16 +3,17 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        hostname: 'images.unsplash.com'
+        hostname: 'images.unsplash.com',
       },
       {
-        hostname: 'prismic-io.s3.amazonaws.com'
+        hostname: 'prismic-io.s3.amazonaws.com',
       },
       {
-        hostname: 'images.prismic.io'
-      }
-    ]
-  }
-};
+        hostname: 'images.prismic.io',
+      },
+      { hostname: 'escreveaiblog.com' },
+    ],
+  },
+}
 
-export default nextConfig;
+export default nextConfig
