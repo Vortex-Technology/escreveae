@@ -2,7 +2,7 @@
 
 import { Content } from '@prismicio/client'
 import { SliceComponentProps } from '@prismicio/react'
-import { PostCard } from './components/PostCard'
+import { PostCard } from '../../components/PostCard'
 
 /**
  * Props for `Posts`.
