@@ -1,0 +1,28 @@
+{
+  "id": "books",
+  "type": "SharedSlice",
+  "name": "Books",
+  "description": "Books",
+  "variations": [
+    {
+      "id": "default",
+      "name": "My Books",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {},
+      "items": {}
+    },
+    {
+      "id": "studantBooks",
+      "name": "Studant Books",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {},
+      "items": {}
+    }
+  ]
+}

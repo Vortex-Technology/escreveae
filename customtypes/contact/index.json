@@ -1,6 +1,6 @@
 {
-  "id": "home",
-  "label": "home",
+  "id": "contact",
+  "label": "contact",
   "format": "page",
   "repeatable": false,
   "status": true,
@@ -11,13 +11,10 @@
         "fieldset": "Slice Zone",
         "config": {
           "choices": {
-            "find_tags": {
+            "contact_button": {
               "type": "SharedSlice"
             },
             "footer": {
-              "type": "SharedSlice"
-            },
-            "banner": {
               "type": "SharedSlice"
             },
             "header": {

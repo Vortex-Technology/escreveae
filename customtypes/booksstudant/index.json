@@ -1,6 +1,6 @@
 {
-  "id": "home",
-  "label": "home",
+  "id": "booksstudant",
+  "label": "booksStudant",
   "format": "page",
   "repeatable": false,
   "status": true,
@@ -11,16 +11,16 @@
         "fieldset": "Slice Zone",
         "config": {
           "choices": {
-            "find_tags": {
-              "type": "SharedSlice"
-            },
             "footer": {
               "type": "SharedSlice"
             },
-            "banner": {
+            "header": {
               "type": "SharedSlice"
             },
-            "header": {
+            "books": {
+              "type": "SharedSlice"
+            },
+            "banner": {
               "type": "SharedSlice"
             }
           }

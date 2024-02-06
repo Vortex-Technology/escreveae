@@ -1,8 +1,9 @@
-import { Button } from '@/components/ui/button'
+import Image from 'next/image'
 import { Content, asText } from '@prismicio/client'
 import { SliceComponentProps } from '@prismicio/react'
-import Image from 'next/image'
 import { DropDownButton } from './components/DropDownButton'
+import { HeaderLink } from './components/HeaderLink'
+import { DropDownMenu } from './components/DropDownMenu'
 
 /**
  * Props for `Header`.
@@ -15,7 +16,7 @@ export type HeaderProps = SliceComponentProps<Content.HeaderSlice>
 const Header = ({ slice }: HeaderProps): JSX.Element => {
   return (
     <header
-      className="w-full flex justify-between h-16 bg-gray-100 px-6 py-1.5 shadow-black/30 shadow-lg"
+      className="w-full data-[slice-variation='default']:fixed data-[slice-variation='default']:z-50 data-[slice-variation='unfixed']:mb-[8%] flex justify-between max-sm:h-12 h-16 bg-gray-100 px-6 max-sm:px-1 py-1.5 shadow-black/30 shadow-lg top-0"
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
@@ -35,8 +36,9 @@ const Header = ({ slice }: HeaderProps): JSX.Element => {
         )}
       </div>
 
-      <nav className="flex items-center ">
-        <ul className="flex gap-3">
+      <nav className="flex items-center">
+        <DropDownMenu buttons={slice.items.map((i) => i.button)} />
+        <ul className="flex gap-3 max-sm:hidden">
           {slice.items.map(({ button }) => {
             const items = button?.split(',') ?? []
             const isDropDownButton = items.length > 1
@@ -51,7 +53,7 @@ const Header = ({ slice }: HeaderProps): JSX.Element => {
 
             return (
               <li key={button}>
-                <Button>{button}</Button>
+                <HeaderLink pattern={button as string} />
               </li>
             )
           })}
